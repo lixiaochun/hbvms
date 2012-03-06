@@ -17,12 +17,7 @@ import org.apache.hadoop.hbase.client.Result;
 import org.apache.hadoop.hbase.client.ResultScanner;  
 import org.apache.hadoop.hbase.util.Bytes;  
   
-/** 
- * @author zhenghui E-mail:zhenghui.cjb@taobao.com 
- * @version 1.0 
- * @data 2010-12-21 上午10:55:17 
- *  
- */  
+ 
 public class HbaseDao implements IHbaseDao {  
     public final static String COLENDCHAR = String  
             .valueOf(KeyValue.COLUMN_FAMILY_DELIMITER);// ":" 列簇和列之间的分隔符  

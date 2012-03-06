@@ -3,13 +3,7 @@ package dao;
 import java.io.IOException;  
 import java.util.Map;  
   
-/** 
- * @author zhenghui  
- * @version 1.0 
- * @data 2010-12-20 下午02:19:53 
- *  
- *       对hbase的DAO操作(接口) 
- */  
+
 public interface IHbaseDao {  
     /** 
      * 创建表 
