@@ -48,6 +48,7 @@ public class SearchFrame extends JFrame {
 		bottomPanel.setLayout(new FlowLayout());
 		JButton playButton=new JButton("播放");
 		JButton download=new JButton("下载");
+		JButton delete=new JButton("删除");
 		playButton.addActionListener(new ActionListener() {
 			
 			@Override
@@ -73,13 +74,22 @@ public class SearchFrame extends JFrame {
 				      }
 			}
 		});
+		delete.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		bottomPanel.add(playButton);
 		bottomPanel.add(download);
+		bottomPanel.add(delete);
 		container.add(upPanel, BorderLayout.NORTH);
 		container.add(scrollPane, BorderLayout.CENTER);
 		container.add(bottomPanel,BorderLayout.SOUTH);
 		setSize(600, 450);
-		setTitle("视频点播");
+		setTitle("视频查询 ");
 		
 
 		setLocation(200, 150);
