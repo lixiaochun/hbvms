@@ -52,6 +52,7 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated method stub
 				dispose();
 				System.exit(0);
+				
 			}
 
 		});
