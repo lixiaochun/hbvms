@@ -45,33 +45,7 @@ public class HbaseDao implements IHbaseDao {
     public void setAdmin(HBaseAdmin admin) {  
         this.admin = admin;  
     }  
-  
-    public void createHTable(String tableName, String[] columns)  
-            throws IOException {  
-        try {  
-            if (admin.tableExists(tableName))  
-                return;// 判断表是否已经存在  
-            HTableDescriptor htdesc = this.createHTDesc(tableName);  
-            for (int i = 0; i < columns.length; i++) {  
-                String colName = columns[i];  
-                this.addFamily(htdesc, colName, false);  
-            }  
-            admin.createTable(htdesc);  
-        } catch (IOException e) {  
-            throw e;  
-        }  
-    }  
-  
-    public void createHTable(String tableName) throws IOException {  
-        try {  
-            if (admin.tableExists(tableName))  
-                return;// 判断表是否已经存在  
-            HTableDescriptor htdesc = this.createHTDesc(tableName);  
-            admin.createTable(htdesc);  
-        } catch (IOException e) {  
-            throw e;  
-        }  
-    }  
+   
   
     public void deleteColumn(String tableName, String rowID, String colName,  
             String cluster) throws IOException {  

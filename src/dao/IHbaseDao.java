@@ -5,25 +5,6 @@ import java.util.Map;
   
 
 public interface IHbaseDao {  
-    /** 
-     * 创建表 
-     *  
-     * @param tableName 
-     *            表名, 
-     * @param columns 
-     *            family name组成的数组 
-     * @throws IOException 
-     */  
-    void createHTable(String tableName, String[] columns) throws IOException;  
-  
-    /** 
-     * 创建表 
-     *  
-     * @param tableName 
-     *            表名 
-     * @throws IOException 
-     */  
-    void createHTable(String tableName) throws IOException;  
   
     /** 
      * 插入数据或者修改数据.对应于shell操作中的 put 
