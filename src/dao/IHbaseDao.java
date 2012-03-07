@@ -21,34 +21,13 @@ public interface IHbaseDao {
      *            值 
      * @throws IOException 
      */  
+	//插入数据 
     void insertAndUpdate(String tableName, String row, String family,  
             String qualifier, String value) throws IOException;  
   
-    /** 
-     * 删除列名(也就是删除family.属于修改表结构的操作.调用的时候请慎重) 
-     *  
-     * @param tableName 
-     * @param colName 
-     * @throws IOException 
-     */  
-    void removeFamily(String tableName, String colName) throws IOException;  
+ 
   
-    /** 
-     * 删除某个family下的某个列的某行 
-     *  
-     * @param tableName 
-     *            表名 
-     * @param rowID 
-     *            行名 
-     * @param colName 
-     *            family name(列簇) 
-     * @param cluster 
-     *            列名 
-     * @throws IOException 
-     */  
-    void deleteColumn(String tableName, String rowID, String colName,  
-            String cluster) throws IOException;  
-  
+
     /** 
      * 获取某一行,某一列簇中的某一列的值 
      *  
@@ -63,22 +42,16 @@ public interface IHbaseDao {
      * @return 
      * @throws IOException 
      */  
+    //获得数据
     String getValue(String tableName, String rowID, String colName,  
             String cluster) throws IOException;  
   
-    /** 
-     * 获取某一列的所有行值 
-     *  
-     * @param tableName 
-     *            表名 
-     * @param colName 
-     *            列簇名 
-     * @param cluster 
-     *            列名 
-     * @return 
-     * @throws IOException 
-     */  
-    Map<String, String> getColumnValue(String tableName, String colName,  
-            String cluster) throws IOException;  
+
   
+    //获取某一行所有数据
+    Map<String,String> getRowValues(String tableName,String rowkey) throws IOException;
+    //删除一行
+    void deleteRow(String tableName,String rowkey) throws IOException;
+    
+    
 }  
