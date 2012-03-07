@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,8 +13,21 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.compress.CompressionCodec;
+import org.apache.hadoop.io.compress.GzipCodec;
+import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+
+
+
 public class LoginFrame extends JFrame {
-  private MainFrame mainFrame;
+	private MainFrame mainFrame;
+
 	public LoginFrame() {
 		Container container = this.getContentPane();
 		GridLayout layout = new GridLayout(15, 10);
@@ -39,14 +53,14 @@ public class LoginFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-		
-				if(name.getText().equals("admin")&&passw.getText().equals("123")){
-					
-					mainFrame=new MainFrame();
+
+				if (name.getText().equals("admin")
+						&& passw.getText().equals("123")) {
+
+					mainFrame = new MainFrame();
 					LoginFrame.this.setVisible(false);
 					mainFrame.setVisible(true);
-				}
-				else{
+				} else {
 				}
 			}
 		});
@@ -55,8 +69,8 @@ public class LoginFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
-
+				// System.exit(0);
+			
 			}
 		});
 		panel3.add(j1);
