@@ -58,7 +58,8 @@ public class Indext {
 			}
 		}
 
-		public static void main(String[] args) throws Exception {
+		public static void main(String[] args) throws
+		Exception {
 			Configuration conf = new Configuration();
 			if (args.length != 2) {
 				System.err.println("Usage: wordcount  ");
