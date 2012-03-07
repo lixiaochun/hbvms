@@ -1,6 +1,7 @@
 package service;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -32,10 +33,10 @@ public class HBaseService implements IHBaseService {
 				tags=s+",";
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "tags", tags);
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "pathname", video.getPathname());
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "uploadDate", video.getUploadDate().toString());
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "videolength", String.valueOf(video.getVideolength()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "downloadnum", String.valueOf(video.getDownloadnum()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "size", String.valueOf(video.getSize()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "uploadDate", Long.toString(video.getUploadDate().getTime()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "videolength", Integer.toString(video.getVideolength()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "downloadnum", Integer.toString(video.getDownloadnum()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "size", Integer.toString(video.getSize()));
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "type", video.getType());
 
 
@@ -66,6 +67,7 @@ public class HBaseService implements IHBaseService {
 		     video.setVideolength(Integer.parseInt(resultMap.get("videolength")));
 		     video.setSize(Integer.parseInt(resultMap.get("size")));
 		     video.setDownloadnum(Integer.parseInt(resultMap.get("downloadnum")));
+		     video.setUploadDate(new Date(Long.parseLong(resultMap.get("uploadDate"))));
 		     return video;
 		     } catch (IOException e) {
 			// TODO Auto-generated catch block
