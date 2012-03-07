@@ -48,5 +48,6 @@ public void update() throws ParseException{
 	video.setTags(taglist);
 	video.setType(this.type);
 	video.setUploadDate(new Date());
+	
 }
 }
