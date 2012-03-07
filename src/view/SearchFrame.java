@@ -32,14 +32,24 @@ public class SearchFrame extends JFrame {
 		JPanel upPanel = new JPanel();
 		upPanel.setLayout(new FlowLayout());
 		upPanel.add(new JLabel("标签查询"));
-		JTextField jTextField = new JTextField("多个标签以空格分开   ");
+		JTextField jTextField = new JTextField("多个标签以逗号分开   ");
 		
 		upPanel.add(jTextField);
-		upPanel.add(new JButton("搜索"));
+		JButton searchButton=new JButton("搜索");
+		searchButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		upPanel.add(searchButton);
+		
 		// 视频列表
 		scrollPane = new JScrollPane();
 
-		Object[][] results = { { "1", "", "", "", "", "", "" } };
+		Object[][] results = { { "", "", "", "", "", "", "" } };
 		JTable jTable = new JTable(results, colunNames);
 
 		scrollPane.setViewportView(jTable);
