@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 
-import control.UpdateControl;
+import control.UploadControl;
 
 public class UpdateFrame extends JFrame{
 	private JTextField path;
@@ -108,7 +108,7 @@ public UpdateFrame() {
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
 			try {
-				new UpdateControl(path.getText(), name.getText(), time.getText(), tags.getText(), type.getText()).upload();
+				new UploadControl(path.getText(), name.getText(), time.getText(), tags.getText(), type.getText()).upload();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

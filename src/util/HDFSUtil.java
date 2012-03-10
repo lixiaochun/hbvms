@@ -1,5 +1,6 @@
 package util;
 
+import java.io.IOException;
 import java.util.Iterator;  
 import java.util.Map.Entry;  
 
@@ -119,19 +120,29 @@ public class HDFSUtil {
      * @param local 
      * @param remote 
      */  
-    public synchronized static void download(FileSystem fs, String local,  
-            String remote) {  
+    public synchronized static void download(FileSystem fs, String src,  
+            String dest) {  
         // Path home = fs.getHomeDirectory();  
         Path workDir = fs.getWorkingDirectory();  
-        Path dst = new Path(workDir + "/" + remote);  
-        Path src = new Path(local);  
+        Path srcPath = new Path(workDir + "/" + src);  
+        Path destPath = new Path(dest);  
         try {  
-            fs.copyToLocalFile(false, dst, src);  
+            fs.copyToLocalFile(false, srcPath, destPath);  
           
         } catch (Exception e) {  
             e.printStackTrace();
         }  
     }  
+    public synchronized static void DeFile(FileSystem fs,String filepath){
+    	 Path workDir = fs.getWorkingDirectory();  
+		    Path path = new Path(workDir + "/" + filepath);  
+		    try {
+				fs.delete(path, false);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    }
     /** 
      * 字节数转换 
      *  

@@ -12,7 +12,7 @@ import service.HBaseService;
 import service.IHBaseService;
 import util.HDFSUtil;
 
-public class UpdateControl {
+public class UploadControl {
 	private String path;
 	private String name;
 	private String time;
@@ -20,10 +20,10 @@ public class UpdateControl {
 	private IHBaseService hbaseService;
 	private String tags;
 
-public UpdateControl() {
+public UploadControl() {
 	// TODO Auto-generated constructor stub
 }
-public UpdateControl(String path,String name,String time,String tags, String type){
+public UploadControl(String path,String name,String time,String tags, String type){
 	
 	this.path=path;
 	this.name=name;
