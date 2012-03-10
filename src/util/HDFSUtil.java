@@ -16,11 +16,11 @@ import org.apache.hadoop.hdfs.protocol.DatanodeInfo;
 
 public class HDFSUtil {  
 
-    public synchronized static FileSystem getFileSystem(String ip, int port) {  
+    public synchronized static FileSystem getFileSystem() {  
         FileSystem fs = null;  
-    
-        Configuration config = HBaseConfiguration.create();  
-         
+        String url = "hdfs://192.168.69.25:9000";  
+        Configuration config = new Configuration();  
+        config.set("fs.default.name", url); 
         try {  
             fs = FileSystem.get(config);  
         } catch (Exception e) {  
