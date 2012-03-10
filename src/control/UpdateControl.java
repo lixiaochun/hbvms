@@ -7,6 +7,7 @@ import java.util.Date;
 
 import model.Video;
 
+import service.HBaseService;
 import service.IHBaseService;
 
 public class UpdateControl {
@@ -16,6 +17,7 @@ public class UpdateControl {
 	private String type;
 	private IHBaseService hbaseService;
 	private String tags;
+
 public UpdateControl() {
 	// TODO Auto-generated constructor stub
 }
@@ -32,6 +34,7 @@ public UpdateControl(String path,String name,String time,String tags, String typ
 //	}
 	this.time=time;
 	this.type=type;
+	hbaseService=new HBaseService();
 }
 public void update() throws ParseException{
 	SimpleDateFormat dateformat=new SimpleDateFormat("HH:mm:ss");
