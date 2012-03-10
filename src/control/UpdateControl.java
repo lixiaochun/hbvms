@@ -1,5 +1,6 @@
 package control;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import model.Video;
 
 import service.HBaseService;
 import service.IHBaseService;
+import util.HDFSUtil;
 
 public class UpdateControl {
 	private String path;
@@ -32,11 +34,12 @@ public UpdateControl(String path,String name,String time,String tags, String typ
 //		// TODO Auto-generated catch block
 //		e.printStackTrace();
 //	}
+	this.tags=tags;
 	this.time=time;
 	this.type=type;
 	hbaseService=new HBaseService();
 }
-public void update() throws ParseException{
+public void upload() throws ParseException{
 	SimpleDateFormat dateformat=new SimpleDateFormat("HH:mm:ss");
 	Video video=new Video();
 	Date date=dateformat.parse(this.time);
@@ -48,9 +51,15 @@ public void update() throws ParseException{
 		if(!tag.equals(""))
 			taglist.add(tag);
 	}
+	video.setVideolength(videotime);
 	video.setTags(taglist);
 	video.setType(this.type);
 	video.setUploadDate(new Date());
-	
+	video.setPathname("/file/"+name+"."+type);
+	File file=new File(path);
+	long size=file.length();
+	video.setSize(size);
+	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
+	hbaseService.addVideo("test", video);
 }
 }

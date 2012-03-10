@@ -12,7 +12,7 @@ private String pathname;//视频的存储路径
 private Date  uploadDate;//视频上传时间
 private int videolength;//视频时长，单位为秒
 private int downloadnum;//视频下载次数
-private int size;//视频大小
+private long size;//视频大小
 private String type;//视频类型
 public String getType() {
 	return type;
@@ -26,10 +26,10 @@ public int getRowId() {
 public void setRowId(int rowId) {
 	this.rowId = rowId;
 }
-public int getSize() {
+public long getSize() {
 	return size;
 }
-public void setSize(int size) {
+public void setSize(long size) {
 	this.size = size;
 }
 public String getName() {

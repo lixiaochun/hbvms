@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.text.ParseException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+
+import control.UpdateControl;
 
 public class UpdateFrame extends JFrame{
 	private JTextField path;
@@ -104,6 +107,12 @@ public UpdateFrame() {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// TODO Auto-generated method stub
+			try {
+				new UpdateControl(path.getText(), name.getText(), time.getText(), tags.getText(), type.getText()).upload();
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println("path:"+path.getText()+"name"+name.getText()+"time"+time.getText()+"type"+type.getText());
 		}
 	});

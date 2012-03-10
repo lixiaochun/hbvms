@@ -24,7 +24,7 @@ public class SearchFrame extends JFrame {
 	private PlayFrame playFrame;
 	private String[] colunNames = { "序号", "名称", "类型", "上传时间", "时长", "大小",
 			"下载次数" };
-
+ 
 	public SearchFrame() {
 		// TODO Auto-generated constructor stub
 		Container container = this.getContentPane();

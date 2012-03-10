@@ -27,17 +27,17 @@ public class HBaseService implements IHBaseService {
 	public void addVideo(String tableName,Video video) {
 		// TODO Auto-generated method stub
 		try {
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "name", video.getName());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "name", video.getName());
 			String tags="";
 			for(String s:video.getTags())
 				tags=s+",";
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "tags", tags);
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "pathname", video.getPathname());
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "uploadDate", Long.toString(video.getUploadDate().getTime()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "videolength", Integer.toString(video.getVideolength()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "downloadnum", Integer.toString(video.getDownloadnum()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "size", Integer.toString(video.getSize()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), null, "type", video.getType());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "tags", tags);
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "pathname", video.getPathname());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "uploadDate", Long.toString(video.getUploadDate().getTime()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "videolength", Integer.toString(video.getVideolength()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "downloadnum", Integer.toString(video.getDownloadnum()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "size", Long.toString(video.getSize()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "type", video.getType());
 
 
 		} catch (IOException e) {
@@ -65,7 +65,7 @@ public class HBaseService implements IHBaseService {
 		     video.setPathname(resultMap.get("pathname"));
 		     video.setType(resultMap.get("type"));
 		     video.setVideolength(Integer.parseInt(resultMap.get("videolength")));
-		     video.setSize(Integer.parseInt(resultMap.get("size")));
+		     video.setSize(Long.parseLong(resultMap.get("size")));
 		     video.setDownloadnum(Integer.parseInt(resultMap.get("downloadnum")));
 		     video.setUploadDate(new Date(Long.parseLong(resultMap.get("uploadDate"))));
 		     return video;
