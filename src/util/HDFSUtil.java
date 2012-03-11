@@ -19,7 +19,7 @@ public class HDFSUtil {
 
     public synchronized static FileSystem getFileSystem() {  
         FileSystem fs = null;  
-        String url = "hdfs://localhost:9000";  
+        String url = "hdfs://192.168.69.25:9000";  
         Configuration config = new Configuration();  
         config.set("fs.default.name", url); 
         try {  
@@ -80,11 +80,13 @@ public class HDFSUtil {
      * @param fs 
      * @param dirName 
      */  
-    public synchronized static void rmdirs(FileSystem fs, String dirName) {  
+    public synchronized static void removedirs(FileSystem fs, String dirName) {  
         // Path home = fs.getHomeDirectory();  
         Path workDir = fs.getWorkingDirectory();  
         String dir = workDir + "/" + dirName;  
         Path src = new Path(dir);  
+       
+        
         boolean succ;  
         try {  
             succ = fs.delete(src, true);  
