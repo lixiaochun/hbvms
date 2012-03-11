@@ -60,6 +60,6 @@ public void upload() throws ParseException{
 	long size=file.length();
 	video.setSize(size);
 	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
-//	hbaseService.addVideo("test", video);
+	hbaseService.addVideo("test", video);
 }
 }
