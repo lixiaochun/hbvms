@@ -19,7 +19,7 @@ public class HDFSUtil {
 
     public synchronized static FileSystem getFileSystem() {  
         FileSystem fs = null;  
-        String url = "hdfs://192.168.69.25:9000";  
+        String url = "hdfs://localhost:9000";  
         Configuration config = new Configuration();  
         config.set("fs.default.name", url); 
         try {  

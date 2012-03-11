@@ -130,7 +130,7 @@ public class SearchFrame extends JFrame {
 					  int selectedRowIndex = jTable.getSelectedRow(); // 取得用户所选单行  
 					 // rowIndex是要删除的行序号
 					  ((DefaultTableModel) tableModel).removeRow(selectedRowIndex);
-					  new DeleteControl(rowkeys[selectedRowIndex],pathnames[selectedRowIndex]);//在数据库中删除 
+//					  new DeleteControl(rowkeys[selectedRowIndex],pathnames[selectedRowIndex]);//在数据库中删除 
 				}
 				
 			}
@@ -147,9 +147,6 @@ public class SearchFrame extends JFrame {
 
 		setLocation(200, 150);
 		
-	}
-	public static void main(String[] args) {
-		new SearchFrame().setVisible(true);
 	}
 
 }

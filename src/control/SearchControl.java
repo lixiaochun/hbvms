@@ -21,10 +21,10 @@ public SearchControl(String tags) {
 }
 public Object[][] search(){
 	System.out.println("tags is" +tags);
-	Object[][] object={{1,"test","avi","2012/3/10 06:04:34","00:10:00","100M",10},{2,"test1","avi","2012/3/11 06:14:34","00:20:00","12M",4}};
-    pathname=new String[2];
-    pathname[0]="1";
-    pathname[1]="2";
+	Object[][] object={{1,"test","avi","2012/3/10 06:04:34","00:10:00","100M",10}};
+    pathname=new String[1];
+    pathname[0]="/file/test.avi";
+
 	
 	return object;
 }
