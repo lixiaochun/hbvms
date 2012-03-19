@@ -22,7 +22,7 @@ import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
-public class Indext {
+public class Index {
 	public static class TokenizerMapper extends Mapper<Text, Text, Text, Text> {
 
 		private final static IntWritable one = new IntWritable(1);
@@ -69,7 +69,7 @@ public class Indext {
 			conf.setClass("mapred.output.compression.codec", GzipCodec.class,
 					CompressionCodec.class);
 			Job job = new Job(conf, "word count");
-			job.setJarByClass(Indext.class);
+			job.setJarByClass(Index.class);
 			job.setMapperClass(TokenizerMapper.class);
 			job.setReducerClass(IntSumReducer.class);
 			job.setMapOutputKeyClass(Text.class);

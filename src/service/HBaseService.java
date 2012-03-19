@@ -27,17 +27,17 @@ public class HBaseService implements IHBaseService {
 	public void addVideo(String tableName,Video video) {
 		// TODO Auto-generated method stub
 		try {
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "name", video.getName());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "name", video.getName());
 			String tags="";
 			for(String s:video.getTags())
 				tags=s+",";
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "tags", tags);
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "pathname", video.getPathname());
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "uploadDate", Long.toString(video.getUploadDate().getTime()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "videolength", Integer.toString(video.getVideolength()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "downloadnum", Integer.toString(video.getDownloadnum()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "size", Long.toString(video.getSize()));
-			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowId()), "info", "type", video.getType());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "tags", tags);
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "pathname", video.getPathname());
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "uploadDate", Long.toString(video.getUploadDate().getTime()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "videolength", Integer.toString(video.getVideolength()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "downloadnum", Integer.toString(video.getDownloadnum()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "size", Long.toString(video.getSize()));
+			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "type", video.getType());
 
 
 		} catch (IOException e) {
@@ -51,7 +51,7 @@ public class HBaseService implements IHBaseService {
 		try {
 			Map<String,String> resultMap=ihBaseDao.getRowValues(tableName, rowkey);
 			Video video=new Video();
-			video.setRowId(Integer.parseInt(rowkey));
+			video.setRowKey(rowkey);
 			video.setName(resultMap.get("name"));
 		    String tags=resultMap.get("tags");
 		    ArrayList<String> taglist=new ArrayList<String>();

@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Video {
-private int rowId;//视频id
+public String getRowKey() {
+		return rowKey;
+	}
+	public void setRowKey(String rowKey) {
+		this.rowKey = rowKey;
+	}
+private String rowKey;//视频id
 private String name;//视频名称
 private ArrayList<String> tags;//视频标签
 private String pathname;//视频的存储路径
@@ -20,12 +26,7 @@ public String getType() {
 public void setType(String type) {
 	this.type = type;
 }
-public int getRowId() {
-	return rowId;
-}
-public void setRowId(int rowId) {
-	this.rowId = rowId;
-}
+
 public long getSize() {
 	return size;
 }

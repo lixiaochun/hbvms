@@ -51,6 +51,7 @@ public void upload() throws ParseException{
 		if(!tag.equals(""))
 			taglist.add(tag);
 	}
+	video.setRowKey(name+type);
 	video.setVideolength(videotime);
 	video.setTags(taglist);
 	video.setType(this.type);
@@ -60,6 +61,6 @@ public void upload() throws ParseException{
 	long size=file.length();
 	video.setSize(size);
 	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
-	hbaseService.addVideo("test", video);
+	hbaseService.addVideo("test2", video);
 }
 }
