@@ -1,5 +1,7 @@
 package control;
 
+import javax.swing.JOptionPane;
+
 import service.HBaseService;
 import service.IHBaseService;
 import util.HDFSUtil;
@@ -20,5 +22,6 @@ public DownloadControl(String pathname,String dest) {
 public void download(){
 	System.out.println("pathname:"+pathname+"dest:"+dest);
 	HDFSUtil.download(HDFSUtil.getFileSystem(), pathname, dest);
+	JOptionPane.showMessageDialog(null, "下载成功");
 }
 }

@@ -1,5 +1,7 @@
 package control;
 
+import javax.swing.JOptionPane;
+
 import service.HBaseService;
 import service.IHBaseService;
 import util.HDFSUtil;
@@ -17,6 +19,7 @@ public DeleteControl(String rowkey,String filepath) {
 public void delete(){
 	hBaseService.deleteVideo("test", this.rowkey);
 	HDFSUtil.DeFile(HDFSUtil.getFileSystem(), filepath);
+    JOptionPane.showMessageDialog(null, "删除成功");
 	
 }
 }

@@ -1,5 +1,7 @@
 package control;
 
+import util.HDFSUtil;
+
 public class SearchControl {
 	private String tags;
 	private String[] rowkeys;
@@ -21,11 +23,14 @@ public SearchControl(String tags) {
 }
 public Object[][] search(){
 	System.out.println("tags is" +tags);
-	Object[][] object={{1,"test","avi","2012/3/10 06:04:34","00:10:00","100M",10}};
-    pathname=new String[1];
-    pathname[0]="/file/test.mkv";
-
 	
-	return object;
+//	Object[][] object={{1,"test","avi","2012/3/10 06:04:34","00:10:00","100M",10}};
+//    pathname=new String[1];
+//    pathname[0]="/file/test.mkv";
+//
+//	
+//	return object;
+	return null;
+	 
 }
 }
