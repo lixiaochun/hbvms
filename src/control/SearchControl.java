@@ -16,7 +16,7 @@ public class SearchControl {
 	private String[] rowkeys;
 	private String[] pathname;
 	private Map<String, String> map;
-	private IHBaseService ihBaseService=new HBaseService();
+	private IHBaseService ihBaseService;
 public String[] getPathname() {
 		return pathname;
 	}
@@ -31,6 +31,7 @@ public String[] getRowkeys() {
 	}
 public SearchControl(String tags) {
 	this.tags=tags;
+	ihBaseService=new HBaseService();
 }
 public Object[][] search() {
 	System.out.println("tags is" +tags);
