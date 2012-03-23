@@ -98,6 +98,21 @@ public class HBaseService implements IHBaseService {
 			e.printStackTrace();
 		}
 	}
+
+
+	@Override
+	public void downloadNumPlus(String tableName, String rowkey) {
+		// TODO Auto-generated method stub
+		try {
+			String value=ihBaseDao.getValue(tableName, rowkey, "info", "downloadnum");
+			String valueNew=String.valueOf((Integer.parseInt(value))+1);
+			ihBaseDao.insertAndUpdate(tableName, rowkey, "info", "downloadnum", valueNew);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 
 }

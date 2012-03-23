@@ -114,7 +114,7 @@ public class SearchFrame extends JFrame {
 				       
 				       String des=file.getSelectedFile().getAbsolutePath();
 //				       JOptionPane.showConfirmDialog(null,dir+"\\","选择的文件",JOptionPane.YES_OPTION);
-				       new DownloadControl(pathnames[selectedRowIndex], des+"/"+results[selectedRowIndex][1]+"."+"mkv").download();
+				       new DownloadControl(pathnames[selectedRowIndex], des+"/"+results[selectedRowIndex][1]+"."+results[selectedRowIndex][2]).download();
 				      }
 			}
 			}

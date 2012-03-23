@@ -54,5 +54,9 @@ public interface IHbaseDao {
     void deleteRow(String tableName,String rowkey) throws IOException;
     //获得所有行的标签
 //    Map<String,String> getAllRow(String tableName,String colName,String cluster) throws IOException;
+
+
+
+
     
 }  

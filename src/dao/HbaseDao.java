@@ -193,6 +193,8 @@ public class HbaseDao implements IHbaseDao {
 		
 		htable.delete(d1);
 		System.out.println("删除行成功 ");
-	}  
+	}
+	
+
   
 }  
