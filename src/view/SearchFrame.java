@@ -45,7 +45,8 @@ public class SearchFrame extends JFrame {
 		upPanel.setLayout(new FlowLayout());
 		
 		upPanel.add(new JLabel("标签查询"));
-		jTextField = new JTextField("多个标签以逗号分开   ");
+		jTextField = new JTextField(10);
+		
 		upPanel.add(jTextField);
 		JButton searchButton=new JButton("搜索");
 		searchButton.addActionListener(new ActionListener() {

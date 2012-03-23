@@ -19,6 +19,7 @@ import org.apache.hadoop.hbase.client.HTable;
 import org.apache.hadoop.hbase.client.Put;  
 import org.apache.hadoop.hbase.client.Result;  
 import org.apache.hadoop.hbase.client.ResultScanner;  
+import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.util.Bytes;  
   
  
@@ -100,8 +101,22 @@ public class HbaseDao implements IHbaseDao {
             throw e;  
         }  
     }  
-  
-    public void insertAndUpdate(String tableName, String row, String family,  
+//    //获得所有行
+//    @Override
+//	public Map<String, String> getAllRow(String tableName, String colName,
+//			String cluster) throws IOException {
+//		// TODO Auto-generated method stub
+//    	HTable table = this.getHTable(tableName);  
+//    	Scan s = new Scan();
+//    	ResultScanner rs=table.getScanner(s);
+//    	Map<String,String> map=new HashMap<String,String>();
+//    	for (Result r:rs){
+//    		KeyValue[] kv=r.raw();
+//    		
+//    	}
+//		return null;
+//	}
+	public void insertAndUpdate(String tableName, String row, String family,  
             String qualifier, String value) throws IOException {  
         HTable table = this.getHTable(tableName);  
         Put p = new Put(Bytes.toBytes(row));  

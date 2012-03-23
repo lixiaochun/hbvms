@@ -61,6 +61,8 @@ public void upload() throws ParseException{
 	long size=file.length();
 	video.setSize(size);
 	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
-	hbaseService.addVideo("hadoop", video);
+   hbaseService.addVideo("hadoop", video);
+   HDFSUtil.append(HDFSUtil.getFileSystem(), "/index/indextemp.txt", "\r\n"+video.getRowKey()+"/"+tags);
+   
 }
 }
