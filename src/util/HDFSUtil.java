@@ -1,6 +1,7 @@
 package util;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Iterator;  
 import java.util.Map.Entry;  
 
@@ -22,6 +23,7 @@ public class HDFSUtil {
         String url = "hdfs://192.168.69.25:9000";  
         Configuration config = new Configuration();  
         config.set("fs.default.name", url); 
+         config.set("dfs.support.append", "true");
         try {  
             fs = FileSystem.get(config);  
         } catch (Exception e) {  
@@ -219,9 +221,10 @@ public class HDFSUtil {
         Path workDir = fs.getWorkingDirectory();  
         Path dst = new Path(workDir + "/" + path);  
         try {  
-            FSDataOutputStream dos = fs.append(dst);  
-            dos.writeUTF(data);  
-            dos.close();  
+        	OutputStream  out = fs.append(dst);  
+            out.write(data.getBytes("UTF-8"));
+             out.flush();
+             out.close();
           
         } catch (Exception e) {  
             e.printStackTrace();

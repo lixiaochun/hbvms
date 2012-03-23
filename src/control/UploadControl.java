@@ -1,6 +1,7 @@
 package control;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,9 +61,13 @@ public void upload() throws ParseException{
 	File file=new File(path);
 	long size=file.length();
 	video.setSize(size);
-	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
-   hbaseService.addVideo("hadoop", video);
-   HDFSUtil.append(HDFSUtil.getFileSystem(), "/index/indextemp.txt", "\r\n"+video.getRowKey()+"/"+tags);
+//	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
+//   hbaseService.addVideo("test2", video);
+ 
+
+	 HDFSUtil.append(HDFSUtil.getFileSystem(), "/index/indextemp.txt", video.getRowKey()+"/"+tags+"\r\n");
+
+  
    
 }
 }

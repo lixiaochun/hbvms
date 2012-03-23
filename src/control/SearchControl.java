@@ -78,7 +78,7 @@ public Object[][] search() {
 }
  public Map<String,String> createIndex() throws Exception{
 	 map=new HashMap<String, String>();
-		String tempString=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex.txt");
+		String tempString=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex");
 		String[] tagAndRowkeys=tempString.split("\r\n");
 		
 		for(String tagandkey:tagAndRowkeys){

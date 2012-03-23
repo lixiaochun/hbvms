@@ -109,7 +109,7 @@ public UpdateFrame() {
 			// TODO Auto-generated method stub
 			try {
 				new UploadControl(path.getText(), name.getText(), time.getText(), tags.getText(), type.getText()).upload();
-				JOptionPane.showConfirmDialog(null, "上传成功");
+				JOptionPane.showMessageDialog(null, "上传成功");
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

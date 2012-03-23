@@ -17,7 +17,7 @@ public DeleteControl(String rowkey,String filepath) {
 	hBaseService=new HBaseService();
 }
 public void delete(){
-	hBaseService.deleteVideo("test", this.rowkey);
+	hBaseService.deleteVideo("test2", this.rowkey);
 	HDFSUtil.DeFile(HDFSUtil.getFileSystem(), filepath);
     JOptionPane.showMessageDialog(null, "删除成功");
 	

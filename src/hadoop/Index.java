@@ -3,6 +3,8 @@ package hadoop;
 
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
 import javax.swing.text.html.HTMLDocument.Iterator;
@@ -25,12 +27,13 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import util.HDFSUtil;
 
 public class Index {
-	public static class TokenizerMapper extends Mapper<Object, Text, Text, Text> {
+
+	public static class IndexMapper extends Mapper<Object, Text, Text, Text> {
 
 		private final static IntWritable one = new IntWritable(1);
 		private Text word = new Text();
-
-		public void map(Text key, Text value, Context context)
+	
+		public void map(Object key, Text value, Context context)
 				throws IOException, InterruptedException {
 //			FileSplit fileSplit = (FileSplit) context.getInputSplit();
 //			String fileName = fileSplit.getPath().getName();
@@ -41,10 +44,11 @@ public class Index {
 //				word.set(itr.nextToken());
 //				context.write(word, fileName_lineOffset);
 //			}
+			 
 			Text tagkey = new Text();
 			Text rowkey=new Text();
 			
-            String tempString=value.toString();
+            String tempString=transformText(value, "UTF-8");
               String[] lines=tempString.split("\n");
             for(String line:lines){
             	String[] keyAndtags=line.split("/");
@@ -54,6 +58,7 @@ public class Index {
                 	for(String tag:tags){
                 		if(tag!=null&&!tag.equals("")){
                 			tagkey.set(tag);
+                			System.out.println(tag);
                 			context.write(tagkey, rowkey);
                 		}
                 	}
@@ -62,7 +67,7 @@ public class Index {
             }
 		}
 	}
-		public static class IntSumReducer extends
+		public static class IndexReducer extends
 				Reducer<Text, Text, Text, Text> {
 			private Text result = new Text();
 
@@ -75,15 +80,17 @@ public class Index {
 //				{	all.append(";");
 //					all.append(it.next().toString());					}
 //				context.write(key, new Text(all.toString()));
-				Text tags=new Text();
+				Text rowkeys=new Text();
 				java.util.Iterator<Text> it=values.iterator();
 				StringBuffer all=new StringBuffer();
-				if(it.hasNext())  all.append(it.next().toString());
+				if(it.hasNext())  all.append(transformText(it.next(),"UTF-8"));
 				for(; it.hasNext(); ) 
 				{	all.append(",");
-					all.append(it.next().toString());					}
-				tags.set(all.toString());
-				context.write(key,tags);
+				all.append(transformText(it.next(),"UTF-8"));					}
+				rowkeys.set(all.toString());
+			    System.out.println(rowkeys);
+			    System.out.println(key);
+				context.write(key,rowkeys);
 			}
 		}
          public void createindex(String srcpath,String despath)throws
@@ -95,13 +102,14 @@ public class Index {
  					CompressionCodec.class);
  			Job job = new Job(conf, "tag index");
  			job.setJarByClass(Index.class);
- 			job.setMapperClass(TokenizerMapper.class);
- 			job.setReducerClass(IntSumReducer.class);
+ 			job.setMapperClass(IndexMapper.class);
+ 			job.setReducerClass(IndexReducer.class);
  			job.setMapOutputKeyClass(Text.class);
  			job.setMapOutputValueClass(Text.class);
  			job.setOutputKeyClass(Text.class);
- 			job.setOutputValueClass(IntWritable.class);
- 			
+ 			job.setOutputValueClass(Text.class);
+ 			job.setOutputFormatClass(FileOutputFormat.class);
+ 		
  			FileInputFormat.addInputPath(job, new Path(srcpath));
  			FileOutputFormat.setOutputPath(job, new Path(despath));
 
@@ -134,4 +142,14 @@ public class Index {
 //			System.exit(job.waitForCompletion(true) ? 0 : 1);
 //
 //		}
+         public static String transformText(Text text, String encoding) {
+             String value = null;
+             try {
+             value = new String(text.getBytes(), 0, text.getLength(), encoding);
+             }
+             catch (UnsupportedEncodingException e) {
+             e.printStackTrace();
+             }
+             return value;
+         }
 	}
