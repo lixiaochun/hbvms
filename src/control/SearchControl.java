@@ -54,9 +54,14 @@ public Object[][] search() {
 		if(map.isEmpty())
 			map=createIndex();
 		String[] tagArray=tags.split(",");
+		if(tagArray.length<1){
+			System.out.println("请输入标签");
+			return null;
+		}
+		List<String> rowkeyList=map.get(tagArray[0].trim());
+		for(int m=1;m<tagArray.length;m++)
+			rowkeyList.retainAll(map.get(tagArray[m].trim()));
 		
-		
-		List<String> rowkeyList=map.get(tags.trim());
 
 		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyList);
 		objects=new Object[videolist.size()][7];
