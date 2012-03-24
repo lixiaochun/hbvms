@@ -3,6 +3,7 @@ package service;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -78,7 +79,7 @@ public class HBaseService implements IHBaseService {
 
 
 	@Override
-	public ArrayList<Video> getVideobyIDs(String tableName,String[] rowkeys) {
+	public ArrayList<Video> getVideobyIDs(String tableName,List<String> rowkeys) {
 		// TODO Auto-generated method stub
 		ArrayList<Video> videolist=new ArrayList<Video>();
 		for(String rowkey:rowkeys){

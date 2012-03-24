@@ -53,11 +53,12 @@ public Object[][] search() {
 	try {
 		if(map.isEmpty())
 			map=createIndex();
+		String[] tagArray=tags.split(",");
+		
+		
 		List<String> rowkeyList=map.get(tags.trim());
-		String[] rowkeyArrary=new String[rowkeyList.size()];
-		for(int m=0;m<rowkeyList.size();m++)
-		rowkeyArrary[m]=rowkeyList.get(m);
-		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyArrary);
+
+		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyList);
 		objects=new Object[videolist.size()][7];
 		pathname=new String[videolist.size()];
 		rowkeys=new String[videolist.size()];
