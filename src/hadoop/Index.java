@@ -94,7 +94,7 @@ public class Index {
 				{	all.append(",");
 				all.append(transformText(it.next(),"UTF-8"));		
 				}
-				all.append(";");
+			
 				rowkeys.set(all.toString());
 			    System.out.println(rowkeys);
 			    System.out.println(key);

@@ -1,8 +1,13 @@
 package util;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Iterator;  
+import java.util.List;
 import java.util.Map.Entry;  
 
 import org.apache.hadoop.conf.Configuration;  
@@ -230,28 +235,37 @@ public class HDFSUtil {
             e.printStackTrace();
         }  
     }  
-    public synchronized static String read(FileSystem fs, String path) {  
+    public synchronized static List<String> read(FileSystem fs, String path) {  
         String content = null;  
         // Path home = fs.getHomeDirectory();  
+        List<String> lines=new ArrayList<String>();
         Path workDir = fs.getWorkingDirectory();  
         Path dst = new Path(workDir + "/" + path);  
         try {  
             // reading  
-            FSDataInputStream is = fs.open(dst);  
-         // get the file info to create the buffer
-            FileStatus stat = fs.getFileStatus(dst);
-            
-            // create the buffer
-            byte[] buffer = new byte[Integer.parseInt(String.valueOf(stat.getLen()))];
-            is.readFully(0, buffer);
-            
-            is.close();
-            fs.close(); 
-              System.out.println(new String(buffer));
-             return new String(buffer);
+//            FSDataInputStream is = fs.open(dst);  
+//         // get the file info to create the buffer
+//            FileStatus stat = fs.getFileStatus(dst);
+//            
+//            // create the buffer
+//            byte[] buffer = new byte[Integer.parseInt(String.valueOf(stat.getLen()))];
+//            is.readFully(0, buffer);
+//            
+//            is.close();
+//            fs.close(); 
+//              System.out.println(new String(buffer));
+        	InputStream in=fs.open(dst);
+        	BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        	String line=null;
+        	while((line=reader.readLine())!=null){
+               lines.add(line);
+
+        	}
+        	System.out.println(lines.size());
+             return lines;
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
-        return null;
+        return lines;
     }  
 }  

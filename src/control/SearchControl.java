@@ -1,9 +1,14 @@
 package control;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import model.Video;
@@ -16,7 +21,7 @@ public class SearchControl {
 	private String tags;
 	private String[] rowkeys;
 	private String[] pathname;
-	private Map<String, String> map=new HashMap<String, String>();
+	private Map<String, List<String>> map=new HashMap<String, List<String>>();
 	private IHBaseService ihBaseService;
 public String[] getPathname() {
 		return pathname;
@@ -44,12 +49,14 @@ public Object[][] search() {
 //	
 //	return object;
 	SimpleDateFormat dateformat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	SimpleDateFormat timeformat=new SimpleDateFormat("HH:mm:ss");
+
 	try {
 		if(map.isEmpty())
 			map=createIndex();
-		String rowkeyString=map.get(tags.trim());
-		String[] rowkeyArrary=rowkeyString.split(",");
+		List<String> rowkeyList=map.get(tags.trim());
+		String[] rowkeyArrary=new String[rowkeyList.size()];
+		for(int m=0;m<rowkeyList.size();m++)
+		rowkeyArrary[m]=rowkeyList.get(m);
 		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyArrary);
 		objects=new Object[videolist.size()][7];
 		pathname=new String[videolist.size()];
@@ -80,22 +87,43 @@ public Object[][] search() {
 	return null;
 	 
 }
- public Map<String,String> createIndex() throws Exception{
+ public Map<String,List<String>> createIndex() throws Exception{
 	 
-		String tempString=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex/part-r-00000");
-		String[] tagAndRowkeys=tempString.split(";");
-		System.out.println(tagAndRowkeys.length);
-		System.out.println(tagAndRowkeys[0]);
-		for(String tagandkey:tagAndRowkeys){
-			
-			String[] tag=tagandkey.split("\\s");
-			if(tag.length<2)
+		List<String> lines=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex/part-r-00000");
+		for(String line:lines){
+			String[] tokens = line.split("\\s+");
+			if (tokens.length < 2)
+			{
 				continue;
-		   map.put(tag[0], tag[1]);
-		   System.out.println(tag[0]+tag[1]);
-			   
-			
+			}
+			String tag=tokens[0];
+			List<String> rowkeyList=new ArrayList<String>();
+			String[] rowkeys=tokens[1].split(",");
+			for(String rowkey:rowkeys){
+				if(!rowkey.equals("")&&rowkey!=null)
+				rowkeyList.add(rowkey);
+			}
+			map.put(tag, rowkeyList);
 		}
+	
+//		System.out.println("------------------");
+//		System.out.println(tempString);
+//		System.out.println("------------------");
+//		String[] tagAndRowkeys=tempString.split(";");
+//		System.out.println(tagAndRowkeys.length);
+//		System.out.println(tagAndRowkeys[0]+"/"+tagAndRowkeys[1]);
+//		for(String tagandkey:tagAndRowkeys){
+//			
+//			String[] tag=tagandkey.split("\\s+");
+//			if(tag.length<2)
+//				continue;
+//		   map.put(tag[0], tag[1]);
+//		   System.out.println(tag[0]+tag[1]);
+//			   
+//			
+//		}
+		
+		
 	return map;
 	 
  }

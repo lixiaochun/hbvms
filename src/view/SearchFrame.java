@@ -131,9 +131,16 @@ public class SearchFrame extends JFrame {
 					  int selectedRowIndex = jTable.getSelectedRow(); // 取得用户所选单行  
 					 // rowIndex是要删除的行序号
 					  ((DefaultTableModel) tableModel).removeRow(selectedRowIndex);
-//					  new DeleteControl(rowkeys[selectedRowIndex],pathnames[selectedRowIndex]);//在数据库中删除 
+					  new DeleteControl(rowkeys[selectedRowIndex],pathnames[selectedRowIndex]);//在数据库中删除 
+					  for(int i=selectedRowIndex;i<rowkeys.length-1;i++){
+						  rowkeys[i]=rowkeys[i+1];
+						  pathnames[i]=pathnames[i+1];
+					  }
+					 
+						  
 				}
-				
+				else 
+					JOptionPane.showMessageDialog(null, "请选择删除的单行");
 			}
 		});
 		bottomPanel.add(playButton);
