@@ -226,7 +226,10 @@ public class HDFSUtil {
         Path workDir = fs.getWorkingDirectory();  
         Path dst = new Path(workDir + "/" + path);  
         try {  
+        	if(!fs.exists(dst))
+        		fs.create(dst);
         	OutputStream  out = fs.append(dst);  
+        	
             out.write(data.getBytes("UTF-8"));
              out.flush();
              out.close();

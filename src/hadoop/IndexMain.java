@@ -12,6 +12,7 @@ public static void main(String[] args) {
 	
 	try {
 //		 HDFSUtil.DeFile(HDFSUtil.getFileSystem(), "/index/tagindex");
+		
 		indexUntil.createindex(parpath+"indextemp.txt", parpath+"tagindex");
 	} catch (Exception e) {
 		// TODO Auto-generated catch block
