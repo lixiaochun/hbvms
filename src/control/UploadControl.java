@@ -46,14 +46,17 @@ public void upload() throws ParseException{
 	Date date=dateformat.parse(this.time);
 	int videotime=date.getHours()*3600+date.getMinutes()*60+date.getSeconds();
 	video.setName(name);
-	String[] tagArray=this.tags.split(",");
+	String[] tagArray=tags.split(",");
+	System.out.println(tagArray.length);
 	ArrayList<String> taglist=new ArrayList<String>();
 	for(String tag:tagArray){
 		if(!tag.equals(""))
 			taglist.add(tag);
+		    
 	}
 	video.setRowKey(name+type);
 	video.setVideolength(videotime);
+	System.out.println(taglist.size());
 	video.setTags(taglist);
 	video.setType(this.type);
 	video.setUploadDate(new Date());
@@ -62,7 +65,7 @@ public void upload() throws ParseException{
 	long size=file.length();
 	video.setSize(size);
 	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
-   hbaseService.addVideo("test2", video);
+   hbaseService.addVideo("testcloud", video);
  
 
 	 HDFSUtil.append(HDFSUtil.getFileSystem(), "/index/indextemp.txt", video.getRowKey()+"/"+tags+"\r\n");

@@ -30,8 +30,13 @@ public class HBaseService implements IHBaseService {
 		try {
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "name", video.getName());
 			String tags="";
-			for(String s:video.getTags())
-				tags=s+",";
+			
+			for(String s:video.getTags()){
+				System.out.println("-------------------");
+				System.out.println(s);
+				System.out.println("-------------------");
+				tags+=s+",";
+				}
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "tags", tags);
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "pathname", video.getPathname());
 			ihBaseDao.insertAndUpdate(tableName, String.valueOf(video.getRowKey()), "info", "uploadDate", Long.toString(video.getUploadDate().getTime()));
@@ -54,7 +59,11 @@ public class HBaseService implements IHBaseService {
 			Video video=new Video();
 			video.setRowKey(rowkey);
 			video.setName(resultMap.get("name"));
+			
 		    String tags=resultMap.get("tags");
+		    System.out.println("---------------");
+		    System.out.println(tags);
+		    System.out.println("---------------");
 		    ArrayList<String> taglist=new ArrayList<String>();
 		     String[]  tagArray=tags.split(",");
 		     for(String tag:tagArray)
@@ -68,6 +77,7 @@ public class HBaseService implements IHBaseService {
 		     video.setVideolength(Integer.parseInt(resultMap.get("videolength")));
 		     video.setSize(Long.parseLong(resultMap.get("size")));
 		     video.setDownloadnum(Integer.parseInt(resultMap.get("downloadnum")));
+		     
 		     video.setUploadDate(new Date(Long.parseLong(resultMap.get("uploadDate"))));
 		     return video;
 		     } catch (IOException e) {
@@ -106,7 +116,9 @@ public class HBaseService implements IHBaseService {
 		// TODO Auto-generated method stub
 		try {
 			String value=ihBaseDao.getValue(tableName, rowkey, "info", "downloadnum");
+			
 			String valueNew=String.valueOf((Integer.parseInt(value))+1);
+			ihBaseDao.deletevalue(tableName, rowkey, "info", "downloadnum");
 			ihBaseDao.insertAndUpdate(tableName, rowkey, "info", "downloadnum", valueNew);
 			
 		} catch (IOException e) {

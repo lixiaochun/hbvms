@@ -24,7 +24,7 @@ public DownloadControl(String pathname,String dest,String rowkey) {
 public void download(){
 	System.out.println("pathname:"+pathname+"dest:"+dest);
 	HDFSUtil.download(HDFSUtil.getFileSystem(), pathname, dest);
-    hBaseService.downloadNumPlus("test2", getRowkey());
+    hBaseService.downloadNumPlus("testcloud", getRowkey());
 	JOptionPane.showMessageDialog(null, "下载成功");
 }
 public String getRowkey() {

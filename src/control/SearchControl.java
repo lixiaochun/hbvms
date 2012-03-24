@@ -63,7 +63,7 @@ public Object[][] search() {
 			rowkeyList.retainAll(map.get(tagArray[m].trim()));
 		
 
-		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyList);
+		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("testcloud", rowkeyList);
 		objects=new Object[videolist.size()][7];
 		pathname=new String[videolist.size()];
 		rowkeys=new String[videolist.size()];

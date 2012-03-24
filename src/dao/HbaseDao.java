@@ -180,6 +180,7 @@ public class HbaseDao implements IHbaseDao {
 		Get get=new Get(rowkey.getBytes());
 		Result r=htable.get(get);
 		for(KeyValue kv:r.raw()){
+			
 			resultMap.put(new String(kv.getQualifier()),new String(kv.getValue()));
 		}
 		return resultMap;
@@ -193,6 +194,15 @@ public class HbaseDao implements IHbaseDao {
 		
 		htable.delete(d1);
 		System.out.println("删除行成功 ");
+	}
+	@Override
+	public void deletevalue(String tableName, String rowkey, String family,
+			String qualifier) throws IOException {
+		// TODO Auto-generated method stub
+		HTable  htable=getHTable(tableName);
+		
+		Delete d1=new Delete(rowkey.getBytes());
+		d1.deleteColumn(family.getBytes(), qualifier.getBytes());
 	}
 	
 
