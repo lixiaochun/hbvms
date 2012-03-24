@@ -237,13 +237,21 @@ public class HDFSUtil {
         Path dst = new Path(workDir + "/" + path);  
         try {  
             // reading  
-            FSDataInputStream dis = fs.open(dst);  
-            content = dis.readUTF();  
-            dis.close();  
-          
+            FSDataInputStream is = fs.open(dst);  
+         // get the file info to create the buffer
+            FileStatus stat = fs.getFileStatus(dst);
+            
+            // create the buffer
+            byte[] buffer = new byte[Integer.parseInt(String.valueOf(stat.getLen()))];
+            is.readFully(0, buffer);
+            
+            is.close();
+            fs.close(); 
+              System.out.println(new String(buffer));
+             return new String(buffer);
         } catch (Exception e) {  
             e.printStackTrace();  
         }  
-        return content;  
+        return null;
     }  
 }  

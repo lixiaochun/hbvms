@@ -17,12 +17,18 @@ import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.compress.CompressionCodec;
 import org.apache.hadoop.io.compress.GzipCodec;
 import org.apache.hadoop.mapred.FileSplit;
+import org.apache.hadoop.mapred.InputFormat;
+import org.apache.hadoop.mapred.JobClient;
+import org.apache.hadoop.mapred.JobConf;
+import org.apache.hadoop.mapred.OutputFormat;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
+import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
+import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import util.HDFSUtil;
 
@@ -86,7 +92,9 @@ public class Index {
 				if(it.hasNext())  all.append(transformText(it.next(),"UTF-8"));
 				for(; it.hasNext(); ) 
 				{	all.append(",");
-				all.append(transformText(it.next(),"UTF-8"));					}
+				all.append(transformText(it.next(),"UTF-8"));		
+				}
+				all.append(";");
 				rowkeys.set(all.toString());
 			    System.out.println(rowkeys);
 			    System.out.println(key);
@@ -97,9 +105,7 @@ public class Index {
  		Exception {
         	 Configuration conf = new Configuration();
             
- 			conf.setBoolean("mapred.output.compress", true);
- 			conf.setClass("mapred.output.compression.codec", GzipCodec.class,
- 					CompressionCodec.class);
+ 		
  			Job job = new Job(conf, "tag index");
  			job.setJarByClass(Index.class);
  			job.setMapperClass(IndexMapper.class);
@@ -107,15 +113,16 @@ public class Index {
  			job.setMapOutputKeyClass(Text.class);
  			job.setMapOutputValueClass(Text.class);
  			job.setOutputKeyClass(Text.class);
- 			job.setOutputValueClass(Text.class);
- 			job.setOutputFormatClass(FileOutputFormat.class);
+			job.setOutputValueClass(Text.class);
+ 			
+			job.setOutputFormatClass(TextOutputFormat.class);
  		
  			FileInputFormat.addInputPath(job, new Path(srcpath));
  			FileOutputFormat.setOutputPath(job, new Path(despath));
 
  			System.exit(job.waitForCompletion(true) ? 0 : 1);
 
-        	 
+        	
          }
 //		public static void main(String[] args) throws
 //		Exception {

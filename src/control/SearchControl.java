@@ -2,6 +2,7 @@ package control;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class SearchControl {
 	private String tags;
 	private String[] rowkeys;
 	private String[] pathname;
-	private Map<String, String> map;
+	private Map<String, String> map=new HashMap<String, String>();
 	private IHBaseService ihBaseService;
 public String[] getPathname() {
 		return pathname;
@@ -42,12 +43,12 @@ public Object[][] search() {
 //
 //	
 //	return object;
-	SimpleDateFormat dateformat=new SimpleDateFormat("yyyy:mm:dd HH:mm:ss");
+	SimpleDateFormat dateformat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	SimpleDateFormat timeformat=new SimpleDateFormat("HH:mm:ss");
 	try {
 		if(map.isEmpty())
 			map=createIndex();
-		String rowkeyString=map.get(tags);
+		String rowkeyString=map.get(tags.trim());
 		String[] rowkeyArrary=rowkeyString.split(",");
 		ArrayList<Video> videolist=ihBaseService.getVideobyIDs("hadoop", rowkeyArrary);
 		objects=new Object[videolist.size()][7];
@@ -59,11 +60,14 @@ public Object[][] search() {
             objects[i][1]=video.getName();
              objects[i][2]=video.getType();
              objects[i][3]=dateformat.format(video.getUploadDate());
-              objects[i][4]=video.getVideolength();
+                int hour=video.getVideolength()/3600;
+                int minute=(video.getVideolength()-hour*3600)/60;
+                int second=video.getVideolength()-hour*3600-minute*60;
+              objects[i][4]=new String(hour+"小时"+minute+"分"+second+"秒");
               objects[i][5]=String.valueOf(video.getSize()/1024/1024)+"MB";
               objects[i][6]=video.getDownloadnum();
               pathname[i]=video.getPathname();
-			    
+			    rowkeys[i]=video.getRowKey();
 		}
 		
 		
@@ -77,16 +81,18 @@ public Object[][] search() {
 	 
 }
  public Map<String,String> createIndex() throws Exception{
-	 map=new HashMap<String, String>();
-		String tempString=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex");
-		String[] tagAndRowkeys=tempString.split("\r\n");
-		
+	 
+		String tempString=HDFSUtil.read(HDFSUtil.getFileSystem(), "/index/tagindex/part-r-00000");
+		String[] tagAndRowkeys=tempString.split(";");
+		System.out.println(tagAndRowkeys.length);
+		System.out.println(tagAndRowkeys[0]);
 		for(String tagandkey:tagAndRowkeys){
 			
 			String[] tag=tagandkey.split("\\s");
 			if(tag.length<2)
 				continue;
 		   map.put(tag[0], tag[1]);
+		   System.out.println(tag[0]+tag[1]);
 			   
 			
 		}
