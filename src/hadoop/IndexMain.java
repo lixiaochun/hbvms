@@ -11,7 +11,7 @@ public static void main(String[] args) {
 	String parpath="hdfs://192.168.69.25:9000/user/hadoop/index/";
 	
 	try {
-//		 HDFSUtil.DeFile(HDFSUtil.getFileSystem(), "/index/tagindex");
+		 HDFSUtil.removedirs(HDFSUtil.getFileSystem(), "/index/tagindex");
 		
 		indexUntil.createindex(parpath+"indextemp.txt", parpath+"tagindex");
 	} catch (Exception e) {

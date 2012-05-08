@@ -67,7 +67,7 @@ public void upload() throws ParseException{
 	HDFSUtil.upload(HDFSUtil.getFileSystem(), path, "/file/"+name+"."+type);
    hbaseService.addVideo("testcloud", video);
  
-
+     
 	 HDFSUtil.append(HDFSUtil.getFileSystem(), "/index/indextemp.txt", video.getRowKey()+"/"+tags+"\r\n");
 
   
